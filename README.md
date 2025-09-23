@@ -7,7 +7,7 @@ A simple, containerized SoftEther VPN server deployment using Docker Compose. Th
 Run this single command on your Ubuntu/Debian server:
 
 ```bash
-curl -s https://raw.githubusercontent.com/slavafyi/softether-vpn/refs/heads/main/install | sh
+curl -s https://raw.githubusercontent.com/slavafyi/softether-vpn/refs/heads/main/install | bash
 ```
 
 That's it! The script will:
