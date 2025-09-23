@@ -13,6 +13,9 @@ else
   cd "$APP_DIR"
 fi
 
+sudo sed -i 's/^#DNSStubListener=yes/DNSStubListener=no/' /etc/systemd/resolved.conf
+sudo service systemd-resolved restart
+
 if [ -x "$(command -v docker)" ]; then
   echo "Docker installed! Starting container..."
   docker compose up -d
