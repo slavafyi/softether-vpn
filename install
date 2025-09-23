@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+
+APP_REPO="https://github.com/slavafyi/softether-vpn"
+APP_DIR="/opt/softether-vpn"
+
+git clone "$APP_REPO" "$APP_DIR"
+cd "$APP_DIR"
+
+if [[ $(which docker) && $(docker --version) ]]; then
+  echo "Docker installed! Starting container..."
+  docker compose up -d
+else
+  echo "Docker not installing! Started installing..."
+  sudo apt update
+  sudo apt install ca-certificates curl
+  sudo install -m 0755 -d /etc/apt/keyrings
+  sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+  sudo chmod a+r /etc/apt/keyrings/docker.asc
+  echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+    $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  sudo apt update
+  sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  sudo systemctl start docker
+  sudo systemctl status docker
+  sudo usermod -aG docker ${USER}
+  echo "Docker installed!"
+  echo "Run \"docker compose up -d\" to start the container"
+  su - ${USER}
+fi
