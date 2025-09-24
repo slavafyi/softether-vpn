@@ -17,7 +17,5 @@ services:
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "/etc/timezone:/etc/timezone:ro"
-      - "/srv/softether/data:/mnt"
-      - "/srv/softether/log:/root/server_log"
-      - "/srv/softether/packetlog:/root/packet_log"
-      - "/srv/softether/securitylog:/root/security_log"
+      - "/srv/softether/data:/var/lib/softether"
+      - "/srv/softether/log:/var/log/softether"
